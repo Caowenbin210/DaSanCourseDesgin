@@ -31,7 +31,10 @@ public class ResManager : BaseMgr<ResManager>
             case LoadState.Idle:
                 break;
             case LoadState.LoadScene:
+                // 通过回调的方式告诉我们 场景加载完成
                 SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+
+                // 通过异步方式加载场景
                 mCurrentSceneAsyncOperation = SceneManager.LoadSceneAsync(mCurrentSceneName, LoadSceneMode.Single);
                 if (mCurrentSceneAsyncOperation == null)
                 {
@@ -62,6 +65,11 @@ public class ResManager : BaseMgr<ResManager>
         SceneLoadedCallback = callback;
     }
 
+    private void LoadPlayer()
+    {
+
+    }
+
     //untiy 回调给我们的加载完成
     public void SceneManager_sceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
@@ -71,6 +79,43 @@ public class ResManager : BaseMgr<ResManager>
         if (SceneLoadedCallback != null)
         {
             SceneLoadedCallback();
+        }
+    }
+
+    // 加载资源
+    public Object LoadResource(string resPath)
+    {
+#if UNITY_EDITOR
+        // 只能在unity 的 editor 下的资源加载方式，只是从磁盘加载到内存
+        Object obj = UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(resPath);
+        return obj;
+#else
+        // 
+        其他的加载方式
+#endif
+    }
+    
+    // 实例化显示一个资源
+    public GameObject InstantiateGameObject(string resPath)
+    {
+        GameObject obj = LoadResource(resPath) as GameObject;
+        if (obj != null)
+        {
+            // 实例化资源
+            GameObject go = GameObject.Instantiate<GameObject>(obj);
+            if (go == null)
+            {
+                Debug.LogError("game instactiate failed " + resPath);
+                return null;
+            }
+
+            // 显示资源
+            go.SetActive(true);
+            return go;
+        }
+        else
+        {
+            return null;
         }
     }
 }

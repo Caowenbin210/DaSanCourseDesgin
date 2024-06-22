@@ -19,14 +19,15 @@ public class GameStart : MonoBehaviour
 
         try
         {
-
+            // 场景世界初始化
+            WorldManager.Instance.Init();
         }
         catch (Exception e)
         {
             Debug.LogException(e);
         }
 
-        ResManager.Instance.LoadSceneAsync("rpgpp_lt_scene_1.0", null);
+        WorldManager.Instance.LoadScene("rpgpp_lt_scene_1.0");
     }
 
     // 游戏循环
@@ -35,6 +36,34 @@ public class GameStart : MonoBehaviour
         try
         {
             ResManager.Instance.Update();
+
+            WorldManager.Instance.Update();
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+        }
+    }
+
+    // 在update 后更新
+    private void LateUpdate()
+    {
+        try
+        {
+
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+        }
+    }
+
+    // 以固定频率更新
+    private void FixedUpdate()
+    {
+        try
+        {
+
         }
         catch (Exception e)
         {
