@@ -21,13 +21,15 @@ public class GameStart : MonoBehaviour
         {
             // 场景世界初始化
             WorldManager.Instance.Init();
+
+            EntityManager.Instance.Init();
         }
         catch (Exception e)
         {
             Debug.LogException(e);
         }
 
-        WorldManager.Instance.LoadScene("rpgpp_lt_scene_1.0");
+        
     }
 
     // 游戏循环
@@ -38,6 +40,8 @@ public class GameStart : MonoBehaviour
             ResManager.Instance.Update();
 
             WorldManager.Instance.Update();
+
+            EntityManager.Instance.Update();
         }
         catch (Exception e)
         {
@@ -50,7 +54,7 @@ public class GameStart : MonoBehaviour
     {
         try
         {
-
+            EntityManager.Instance.LateUpdate();
         }
         catch (Exception e)
         {
@@ -79,7 +83,7 @@ public class GameStart : MonoBehaviour
 
         try
         {
-
+            EntityManager.Instance.Exit();
         }
         catch (Exception e)
         {

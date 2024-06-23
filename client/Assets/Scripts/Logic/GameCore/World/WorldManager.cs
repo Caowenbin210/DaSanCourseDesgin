@@ -19,10 +19,13 @@ public class WorldManager : BaseMgr<WorldManager>
     private LoadState mState;
     private string mLoadSceneName;
 
+    private long mObjectID;
+
     // 初始化
     public void Init()
     {
-
+        mObjectID = 1;
+        EnterState(LoadState.Init);
     }
 
     // 世界更新
@@ -40,6 +43,8 @@ public class WorldManager : BaseMgr<WorldManager>
             {
                 // 等待场景加载完成后，加载玩家到场景中
                 LoadMainPlayer();
+
+                LoadNpc();
             });
         }
     }
@@ -60,12 +65,27 @@ public class WorldManager : BaseMgr<WorldManager>
 
     private void LoadMainPlayer()
     {
-        GameObject mainPlayr = ResManager.Instance.InstantiateGameObject("Assets/Res/Role/Peasant Nolant Blue(Free Version).prefab");
-        if (mainPlayr == null)
-        {
+        Vector3 mainPlayerPos = new Vector3(63, 22.5f, 43);
+        EntityMainPlayer mainPlayer = (EntityMainPlayer)EntityManager.Instance.CreateEntity(eEntityType.PLAYER_MAIN, 10000, mainPlayerPos);
+        //mainPlayer.PlayAnimation("metarig|Idle");
+        mainPlayer.PlayerAnimation("WK_heavy_infantry_05_combat_idle");
 
-        }
+    }
 
-        mainPlayr.transform.position = new Vector3(63, 22.5f, 43);
+    // 加载场景中的npc
+    private void LoadNpc()
+    {
+        Vector3 npcPostion = new Vector3(56.3f, 22.23f, 43.8f);
+        EntityNpc npc = (EntityNpc)EntityManager.Instance.CreateEntity(eEntityType.NPC, GeneraterObjectID(), npcPostion);
+        npc.PlayAnimation("metarig|Idle");
+        npc.SetForward(new Vector3(90, 0, 0));
+        npc.SetName("神秘商人");
+    }
+
+    // 生成物体得id
+    private long GeneraterObjectID()
+    {
+        mObjectID++;
+        return mObjectID;
     }
 }
