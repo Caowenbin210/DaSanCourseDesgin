@@ -22,7 +22,11 @@ public class GameStart : MonoBehaviour
             // 场景世界初始化
             WorldManager.Instance.Init();
 
+            // 实体管理初始化
             EntityManager.Instance.Init();
+
+            // 摄像机管理器初始化
+            CameraManager.Instance.Init();
         }
         catch (Exception e)
         {
@@ -42,6 +46,8 @@ public class GameStart : MonoBehaviour
             WorldManager.Instance.Update();
 
             EntityManager.Instance.Update();
+
+            InputManager.Instance.Update();
         }
         catch (Exception e)
         {
@@ -55,6 +61,8 @@ public class GameStart : MonoBehaviour
         try
         {
             EntityManager.Instance.LateUpdate();
+
+            CameraManager.Instance .LateUpdate();
         }
         catch (Exception e)
         {

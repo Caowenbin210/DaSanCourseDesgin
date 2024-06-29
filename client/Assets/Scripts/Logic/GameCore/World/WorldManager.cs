@@ -21,6 +21,9 @@ public class WorldManager : BaseMgr<WorldManager>
 
     private long mObjectID;
 
+    // 摄像机
+    private GameObject mCameraObj;
+
     // 初始化
     public void Init()
     {
@@ -41,6 +44,15 @@ public class WorldManager : BaseMgr<WorldManager>
             EnterState(LoadState.Wait);
             ResManager.Instance.LoadSceneAsync(mLoadSceneName, ()=>
             {
+                GameObject gameObject = GameObject.Find("Main Camera");
+                if(gameObject == null)
+                {
+                    Debug.LogError("not find main camera");
+                    return;
+                }
+
+                mCameraObj = gameObject;
+
                 // 等待场景加载完成后，加载玩家到场景中
                 LoadMainPlayer();
 
@@ -69,6 +81,7 @@ public class WorldManager : BaseMgr<WorldManager>
         EntityMainPlayer mainPlayer = (EntityMainPlayer)EntityManager.Instance.CreateEntity(eEntityType.PLAYER_MAIN, 10000, mainPlayerPos);
         //mainPlayer.PlayAnimation("metarig|Idle");
         mainPlayer.PlayerAnimation("WK_heavy_infantry_05_combat_idle");
+        CameraManager.Instance.InitCamera(mCameraObj.transform, mainPlayer.GetTransform());
 
     }
 

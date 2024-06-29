@@ -33,7 +33,7 @@ public class Entity
             return;
         }
 
-        UIName uiName = nameBar.GetComponent<UIName>();
+        UINames uiName = nameBar.GetComponent<UINames>();
         if (uiName == null)
         {
             return;
@@ -110,5 +110,10 @@ public class Entity
     public virtual void OnLateUpdate(float deltaTime)
     {
 
+    }
+
+    public Transform GetTransform()
+    {
+        return mBody.transform;
     }
 }

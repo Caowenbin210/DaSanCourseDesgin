@@ -28,6 +28,6 @@ public class EntityNpc : Entity
     {
         base.OnUpdate(deltaTime);
 
-        mBody.transform.Rotate(new Vector3(0f, 1, 0f));
+        //mBody.transform.Rotate(new Vector3(0f, 1, 0f));
     }
 }
