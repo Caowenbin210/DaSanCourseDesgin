@@ -125,4 +125,9 @@ public class CameraManager : BaseMgr<CameraManager>
         return Mathf.LerpAngle(cur, tar, deltaTime * pitchLerpSpeed);
 
     }
+
+    public Transform GetTransform()
+    {
+        return mFollowCamera;
+    }
 }

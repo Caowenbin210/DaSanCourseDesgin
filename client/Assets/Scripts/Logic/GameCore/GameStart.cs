@@ -63,6 +63,8 @@ public class GameStart : MonoBehaviour
             EntityManager.Instance.LateUpdate();
 
             CameraManager.Instance .LateUpdate();
+
+            InputManager.Instance.LateUpdate();
         }
         catch (Exception e)
         {

@@ -79,10 +79,13 @@ public class WorldManager : BaseMgr<WorldManager>
     {
         Vector3 mainPlayerPos = new Vector3(63, 22.5f, 43);
         EntityMainPlayer mainPlayer = (EntityMainPlayer)EntityManager.Instance.CreateEntity(eEntityType.PLAYER_MAIN, 10000, mainPlayerPos);
-        //mainPlayer.PlayAnimation("metarig|Idle");
+        //mainPlayer.PlayAnimator("metarig|Idle");
         mainPlayer.PlayerAnimation("WK_heavy_infantry_05_combat_idle");
-        CameraManager.Instance.InitCamera(mCameraObj.transform, mainPlayer.GetTransform());
 
+        mainPlayer.SetMoveSpeed(8.0f);
+
+
+        CameraManager.Instance.InitCamera(mCameraObj.transform, mainPlayer.GetTransform());
     }
 
     // 加载场景中的npc
@@ -90,7 +93,7 @@ public class WorldManager : BaseMgr<WorldManager>
     {
         Vector3 npcPostion = new Vector3(56.3f, 22.23f, 43.8f);
         EntityNpc npc = (EntityNpc)EntityManager.Instance.CreateEntity(eEntityType.NPC, GeneraterObjectID(), npcPostion);
-        npc.PlayAnimation("metarig|Idle");
+        npc.PlayAnimator("metarig|Idle");
         npc.SetForward(new Vector3(90, 0, 0));
         npc.SetName("神秘商人");
     }

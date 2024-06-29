@@ -14,6 +14,17 @@ public class Entity
     // 实体的可见模型
     public GameObject mBody;
 
+    // 实体移动相关
+    // 移动的方向
+    private Vector3 mMoveDir = new Vector3();
+    // 移动的速度
+    private float mMoveSpeed;
+    // 开始移动的时间
+    private float mStartMoveTime;
+    // 开始移动的坐标点
+    private Vector3 mStartPosition;
+
+
     public void SetID(long id)
     {
         mId = id;
@@ -47,14 +58,48 @@ public class Entity
         mBody.transform.position = position;
     }
 
+    public Vector3 GetPosition()
+    {
+        return mBody.transform.position;
+    }
+
     // 设置实体的朝向
     public void SetForward(Vector3 forward)
     {
         mBody.transform.forward = forward;
     }
 
+    // 设置移动速度
+    public void SetMoveSpeed(float speed)
+    {
+        mMoveSpeed = speed;
+    }
+
+    // 设置移动方向
+    public void SetMoveDir(Vector3 dir)
+    {
+        mMoveDir = dir;
+    }
+
+    public Vector3 GetMoveDir()
+    {
+        return mMoveDir;
+    }
+
+    // 设置开始移动的点
+    public void SetStartPosition(Vector3 pos)
+    {
+        mStartPosition = pos;
+    }
+
+    // 设置开始移动的时间
+    public void SetStartMoveTime(float time)
+    {
+        mStartMoveTime = time;
+    }
+
     // 播放实体的动作 
-    public void PlayAnimation(string state)
+    public void PlayAnimator(string state)
     {
         Animator animator = mBody.GetComponent<Animator>();
         if (animator == null)
@@ -103,17 +148,49 @@ public class Entity
     // 实体更新
     public virtual void OnUpdate(float deltaTime)
     {
-
+        if (mMoveDir == Vector3.zero)
+        {
+            return;
+        }
+        OnMoveUpdate();
+        OnRotateUpdate(deltaTime);
     }
 
     // 延时更新
     public virtual void OnLateUpdate(float deltaTime)
     {
-
+        
     }
 
     public Transform GetTransform()
     {
         return mBody.transform;
+    }
+
+    // 移动
+    private void OnMoveUpdate()
+    {
+        float fTimeSpan = Time.realtimeSinceStartup - mStartMoveTime;
+        Vector3 distance = mMoveDir * mMoveSpeed * fTimeSpan;
+        Vector3 endPos = mStartPosition + distance;
+        endPos.y = mStartPosition.y;
+        SetPosition(endPos);
+    }
+
+    public void OnRotateUpdate(float deltaTime)
+    {
+        Vector3 pathForward = GetMoveDir();
+        Vector3 beforeFoward = mBody.transform.forward;
+
+        float angle = Vector3.Angle(beforeFoward, pathForward);
+        if (angle < 0.1f)
+        {
+            return ;
+        }
+
+        float pathTurnSpeed = 15;
+        beforeFoward.y = 0;
+        Vector3 afterFoward = Vector3.Lerp(beforeFoward, pathForward, pathTurnSpeed * deltaTime);
+        mBody.transform.forward = afterFoward;
     }
 }
