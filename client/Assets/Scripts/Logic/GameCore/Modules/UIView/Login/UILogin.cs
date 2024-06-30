@@ -6,6 +6,6 @@ public class UILogin : MonoBehaviour
 {
     public void OnLogin()
     {
-        WorldManager.Instance.LoadScene("rpgpp_lt_scene_1.0");
+        LoginManager.Instance.OnLogin();
     }
 }

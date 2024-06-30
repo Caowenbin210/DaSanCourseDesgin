@@ -19,6 +19,9 @@ public class GameStart : MonoBehaviour
 
         try
         {
+            // 初始化ui管理
+            UIManager.Instance.Init();
+
             // 场景世界初始化
             WorldManager.Instance.Init();
 
@@ -33,7 +36,8 @@ public class GameStart : MonoBehaviour
             Debug.LogException(e);
         }
 
-        
+        // 开始登录
+        LoginManager.Instance.StartLogin();
     }
 
     // 游戏循环
@@ -41,6 +45,8 @@ public class GameStart : MonoBehaviour
     {
         try
         {
+            UIManager.Instance.Update();
+
             ResManager.Instance.Update();
 
             WorldManager.Instance.Update();
@@ -59,7 +65,7 @@ public class GameStart : MonoBehaviour
     private void LateUpdate()
     {
         try
-        {
+        { 
             EntityManager.Instance.LateUpdate();
 
             CameraManager.Instance .LateUpdate();
@@ -94,6 +100,8 @@ public class GameStart : MonoBehaviour
         try
         {
             EntityManager.Instance.Exit();
+
+            UIManager.Instance.Exit();
         }
         catch (Exception e)
         {

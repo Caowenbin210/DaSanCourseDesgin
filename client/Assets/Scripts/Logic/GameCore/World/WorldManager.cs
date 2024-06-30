@@ -53,6 +53,9 @@ public class WorldManager : BaseMgr<WorldManager>
 
                 mCameraObj = gameObject;
 
+
+                UIManager.Instance.ShowUI("Assets/Res/UI/Prefab/UI_Main.prefab");
+
                 // 等待场景加载完成后，加载玩家到场景中
                 LoadMainPlayer();
 
