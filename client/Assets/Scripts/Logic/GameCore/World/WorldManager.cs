@@ -99,12 +99,23 @@ public class WorldManager : BaseMgr<WorldManager>
     // 加载场景中的npc
     private void LoadNpc()
     {
-        Vector3 npcPostion = new Vector3(56.3f, 22.23f, 43.8f);
+        // shop
+        Vector3 npcPostion = new Vector3(56.3f, 22.24f, 43.8f);
         EntityNpc npc = (EntityNpc)EntityManager.Instance.CreateEntity(eEntityType.NPC, GeneraterObjectID(), npcPostion);
+        npc.mBody.GetComponent<Npc>().NpcID = 1001;
         npc.PlayAnimator("metarig|Idle");
-        npc.SetForward(new Vector3(90, 0, 0));
+        npc.SetForward(new Vector3(0, 90, 0));
         npc.SetName("神秘商人");
         npc.SetHp(100);
+
+        // talk
+        npcPostion = new Vector3(67.2f, 22.24f, 62.0f);
+        EntityNpc npc2 = (EntityNpc)EntityManager.Instance.CreateEntity(eEntityType.NPC, GeneraterObjectID(), npcPostion);
+        npc2.mBody.GetComponent<Npc>().NpcID = 1002;
+        npc2.PlayAnimator("metarig|Idle");
+        npc2.SetForward(new Vector3(0, 140, 0));
+        npc2.SetName("村民");
+        npc2.SetHp(100);
     }
 
     // 生成物体得id

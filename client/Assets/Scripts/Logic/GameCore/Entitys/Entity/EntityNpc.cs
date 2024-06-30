@@ -16,6 +16,8 @@ public class EntityNpc : Entity
         string pathPrefab = "Assets/Res/Npc/Peasant Nolant Blue.prefab";
         mBody = ResManager.Instance.InstantiateGameObject(pathPrefab);
 
+        mBody.AddComponent(typeof(Npc));
+
         OnEnable();
     }
 
@@ -39,7 +41,18 @@ public class EntityNpc : Entity
             bool bHit = Physics.Raycast(ray, out hit);
             if (bHit)
             {
-                StoryManager.Instance.StartStory(1);
+                if (hit.collider.gameObject.tag == "Npc")
+                {
+                    int npcID = mBody.GetComponent<Npc>().NpcID;
+                    if (npcID == 1001)
+                    {
+                        ShopManager.Instance.OpenShop();
+                    }
+                    else if (npcID == 1002)
+                    {
+                        StoryManager.Instance.StartStory(1);
+                    }
+                }
             }
         }
     }

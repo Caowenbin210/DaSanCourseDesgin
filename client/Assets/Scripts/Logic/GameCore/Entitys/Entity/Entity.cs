@@ -97,7 +97,7 @@ public class Entity
     // 设置实体的朝向
     public void SetForward(Vector3 forward)
     {
-        mBody.transform.forward = forward;
+        mBody.transform.eulerAngles = forward;
     }
 
     // 设置移动速度
