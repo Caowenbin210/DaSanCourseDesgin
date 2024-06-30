@@ -118,4 +118,11 @@ public class ResManager : BaseMgr<ResManager>
             return null;
         }
     }
+
+    // º”‘ÿÕº∆¨
+    public Sprite LoadImage(string resPath)
+    {
+        Sprite obj = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(resPath);
+        return obj;
+    }
 }

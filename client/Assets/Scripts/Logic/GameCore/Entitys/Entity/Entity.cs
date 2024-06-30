@@ -11,6 +11,10 @@ public class Entity
     // 实体的唯一Id
     private long mId;
 
+    private int mHp;
+    private int mMaxHp;
+    private string mName;
+
     // 实体的可见模型
     public GameObject mBody;
 
@@ -35,6 +39,31 @@ public class Entity
         return mId;
     }
 
+    public void SetHp(int hp)
+    {
+        mHp = hp;
+    }
+
+    public int GetHp()
+    {
+        return (mHp);
+    }
+
+    public string GetName()
+    {
+        return mName;
+    }
+
+    public void SetMaxHp(int maxHp)
+    {
+        mMaxHp = maxHp;
+    }
+
+    public int GetMaxHp()
+    {
+        return mMaxHp;
+    }
+
     // 设置实体的名字
     public void SetName(string name)
     {
@@ -50,6 +79,8 @@ public class Entity
             return;
         }
         uiName.SetName(name);
+
+        mName = name;
     }
 
     // 设置实体的位置坐标

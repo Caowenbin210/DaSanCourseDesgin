@@ -82,11 +82,16 @@ public class WorldManager : BaseMgr<WorldManager>
     {
         Vector3 mainPlayerPos = new Vector3(63, 22.5f, 43);
         EntityMainPlayer mainPlayer = (EntityMainPlayer)EntityManager.Instance.CreateEntity(eEntityType.PLAYER_MAIN, 10000, mainPlayerPos);
+        EntityManager.Instance.MainPlayer = mainPlayer;
+
         //mainPlayer.PlayAnimator("metarig|Idle");
         mainPlayer.PlayerAnimation("WK_heavy_infantry_05_combat_idle");
 
         mainPlayer.SetMoveSpeed(8.0f);
-
+        mainPlayer.SetName("原神启动");
+        mainPlayer.SetHp(200);
+        mainPlayer.SetMoney(200);
+        mainPlayer.SetMaxHp(500);
 
         CameraManager.Instance.InitCamera(mCameraObj.transform, mainPlayer.GetTransform());
     }
@@ -99,6 +104,7 @@ public class WorldManager : BaseMgr<WorldManager>
         npc.PlayAnimator("metarig|Idle");
         npc.SetForward(new Vector3(90, 0, 0));
         npc.SetName("神秘商人");
+        npc.SetHp(100);
     }
 
     // 生成物体得id

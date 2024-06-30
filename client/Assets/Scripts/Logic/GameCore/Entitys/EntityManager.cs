@@ -8,6 +8,8 @@ public class EntityManager:BaseMgr<EntityManager>
     // 存储了所有已经创建出来的实体
     private Dictionary<long, Entity> mEntitys= new Dictionary<long, Entity>();
 
+    public EntityMainPlayer MainPlayer {  get; set; }
+
     // 初始化
     public void Init()
     {

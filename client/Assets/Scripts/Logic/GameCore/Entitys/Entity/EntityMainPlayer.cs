@@ -5,6 +5,10 @@ using UnityEngine;
 // 主角实体，继承实体基类
 public class EntityMainPlayer : Entity
 {
+    private int mMoney = 0;
+
+    public string HeadIcon = "Man_3.png";
+
     public EntityMainPlayer() :base()
     {
 
@@ -57,5 +61,14 @@ public class EntityMainPlayer : Entity
     {
         SetMoveDir(new Vector3(0, 0, 0));
         PlayAnimator("Male Idle");
+    }
+
+    public void SetMoney(int money)
+    {
+        mMoney = money;
+    }
+    public int GetMoney()
+    {
+        return mMoney;
     }
 }
