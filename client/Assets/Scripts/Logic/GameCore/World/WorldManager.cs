@@ -54,7 +54,7 @@ public class WorldManager : BaseMgr<WorldManager>
                 mCameraObj = gameObject;
 
 
-                UIManager.Instance.ShowUI("Assets/Res/UI/Prefab/UI_Main.prefab");
+                UIManager.Instance.ShowUI(UIDefine.UI_MAIN);
 
                 // 等待场景加载完成后，加载玩家到场景中
                 LoadMainPlayer();
@@ -88,7 +88,7 @@ public class WorldManager : BaseMgr<WorldManager>
         mainPlayer.PlayerAnimation("WK_heavy_infantry_05_combat_idle");
 
         mainPlayer.SetMoveSpeed(8.0f);
-        mainPlayer.SetName("原神启动");
+        mainPlayer.SetName("原神玩家");
         mainPlayer.SetHp(200);
         mainPlayer.SetMoney(200);
         mainPlayer.SetMaxHp(500);

@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class LoginManager : BaseMgr<LoginManager>
 {
-    private const string UIPrefab = "Assets/Res/UI/Prefab/UI_Login.prefab";
-
     public void StartLogin()
     {
-        UIManager.Instance.ShowUI(UIPrefab);
+        UIManager.Instance.ShowUI(UIDefine.UI_LOGIN);
     }
 
     public void StopLogin()
     {
-        UIManager.Instance.CloseUI();
+        UIManager.Instance.CloseUI(UIDefine.UI_LOGIN);
     }
 
     public void OnLogin()

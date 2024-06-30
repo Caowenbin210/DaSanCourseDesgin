@@ -19,6 +19,8 @@ public class GameStart : MonoBehaviour
 
         try
         {
+            TableManager.Instance.Init();
+
             // 初始化ui管理
             UIManager.Instance.Init();
 

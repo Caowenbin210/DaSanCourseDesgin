@@ -10,12 +10,13 @@ public class UIManager : BaseMgr<UIManager>
     private Transform mEventSystem;
 
     // 当前显示的ui
-    private GameObject mShowUI;
+    private Dictionary<int, GameObject> mShowUI = new Dictionary<int, GameObject>();
 
 
     // 初始化，获取ui画布，设置为不销毁，切换一直显示
     public void Init()
     {
+        UIDefine.Init();
         if (mUIRoot == null)
         {
             mUIRoot = GameObject.Find("Canvas").transform;
@@ -40,25 +41,42 @@ public class UIManager : BaseMgr<UIManager>
     }
 
     // 显示ui
-    public void ShowUI(string uiPrefab)
+    public void ShowUI(int ui)
     {
-        mShowUI = ResManager.Instance.InstantiateGameObject(uiPrefab);
-        if (mShowUI == null)
+        if (mShowUI.ContainsKey(ui))
         {
-            Debug.LogError("show " + uiPrefab + "error");
+            Debug.LogError("ui " + ui.ToString()+"is show");
             return;
         }
 
-        mShowUI.transform.SetParent(mUIRoot, false);
-        mShowUI.transform.SetAsLastSibling();
+        string prefab = UIDefine.GetUI(ui);
+        GameObject uiObj = ResManager.Instance.InstantiateGameObject(prefab);
+        if (mShowUI == null)
+        {
+            Debug.LogError("show " + prefab + "error");
+            return;
+        }
+
+        uiObj.transform.SetParent(mUIRoot, false);
+        uiObj.transform.SetAsLastSibling();
+
+        mShowUI.Add(ui, uiObj);
     }
 
     // 关闭ui
-    public void CloseUI()
+    public void CloseUI(int ui)
     {
+        if (!mShowUI.ContainsKey(ui))
+        {
+            Debug.LogError("not find ui "+ui.ToString());
+            return;
+        }
+        GameObject uiObj = mShowUI[ui];
         if (mShowUI != null)
         {
-            Object.Destroy(mShowUI.gameObject);
+            Object.Destroy(uiObj);
         }
+
+        mShowUI.Remove(ui);
     }
 }

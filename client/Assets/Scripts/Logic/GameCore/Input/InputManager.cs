@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 // 输入设备管理器，处理鼠标和键盘
 public class InputManager : BaseMgr<InputManager>
@@ -63,6 +64,12 @@ public class InputManager : BaseMgr<InputManager>
 
     private void UpdateMouse()
     {
+        // 如果鼠标点击到ui上，则不处理相机
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         mousePosition = Input.mousePosition;
 
         if (Input.GetMouseButton((int)MouseButton.Left))

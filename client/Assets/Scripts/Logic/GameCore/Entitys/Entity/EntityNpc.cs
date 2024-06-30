@@ -29,5 +29,18 @@ public class EntityNpc : Entity
         base.OnUpdate(deltaTime);
 
         //mBody.transform.Rotate(new Vector3(0f, 1, 0f));
+
+        // ¼ì²âÊó±ê×ó¼üµã»÷
+        if (Input.GetMouseButtonDown((int)InputManager.MouseButton.Left))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            RaycastHit hit;
+            bool bHit = Physics.Raycast(ray, out hit);
+            if (bHit)
+            {
+                StoryManager.Instance.StartStory(1);
+            }
+        }
     }
 }
